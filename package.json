@@ -1,0 +1,26 @@
+{
+  "name": "fmt-server",
+  "version": "1.0.0",
+  "description": "test server for fmt project",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eremziom/fmt-server.git"
+  },
+  "keywords": [
+    "server",
+    "fmt"
+  ],
+  "author": "MK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eremziom/fmt-server/issues"
+  },
+  "homepage": "https://github.com/eremziom/fmt-server#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.4"
+  }
+}
