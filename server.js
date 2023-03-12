@@ -1,10 +1,12 @@
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose')
 const { mongoDBPass, mongoAddress, serverURI } = require('./config.js')
 
 const movieRoutes = require('./routes/movie.routes.js')
 
 const app = express()
+app.use(cors())
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

@@ -30,8 +30,8 @@ router.get('/movies/:id', async (req, res) => {
 
 router.post('/movies', async (req, res) => {
   try {
-    const { title, description, duration, year, type, author } = req.body
-    const newMovie = new Movie({title: title, description: description, duration: duration, year: year, type: type, author: author})
+    const { title, description, duration, year, type, author, img, link } = req.body
+    const newMovie = new Movie({title: title, description: description, duration: duration, year: year, type: type, author: author, img: img, link: link})
     await newMovie.save()
     res.json({message: 'Add Movie Success'})
   }
@@ -42,11 +42,11 @@ router.post('/movies', async (req, res) => {
 
 router.put('/movies/:id', async (req, res) => {
   try {
-    const { title, description, duration, year, type, author } = req.body
+    const { title, description, duration, year, type, author, img, link } = req.body
     const edition = await Movie.findById(req.params.id)
     if(!edition) res.status(404).json({message: 'Not found...'})
     else{
-      await Movie.updateOne({ _id: req.params.id}, {$set: {title: title, description: description, duration: duration, year: year, type: type, author: author}})
+      await Movie.updateOne({ _id: req.params.id}, {$set: {title: title, description: description, duration: duration, year: year, type: type, author: author, img: img, link: link}})
       res.json({message: 'Movie updated successfuly'})
     }
   }
