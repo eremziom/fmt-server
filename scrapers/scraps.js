@@ -24,14 +24,15 @@ function scrapTitle(root){
 
 function scrapOriginalTitle(root){
   const item = root.getElementsByTagName("div").find(div => div.attributes.class === "filmCoverSection__originalTitle")
+  let originalTitle = ''
   if(item){
     const toDecode = item.childNodes[0].rawText
     console.log(he.decode(toDecode))
-    const originalTitle = he.decode(toDecode)
-    return originalTitle
+    originalTitle = he.decode(toDecode)
   } else {
-    scrapTitle(root)
+    originalTitle = '-'
   }
+  return originalTitle
 }
 
 function scrapDirector(root){
@@ -123,10 +124,22 @@ function scrapShortDescription(root){
 }
 
 function scrapLongDescription(root){
-  const item = root.getElementsByTagName("span").find(span => span.attributes.class && span.attributes.class.includes("descriptionSection__moreText"))
-  const toDecode = item.rawText
-  console.log(he.decode(toDecode))
-  const longDescription = he.decode(toDecode)
+  let item = root.getElementsByTagName("p").find(p => p.attributes.class && p.attributes.class.includes("descriptionSection__text"))
+  let longDescription = ''
+  if(item.childNodes.length === 1){
+    const toDecode = item.rawText
+    longDescription = he.decode(toDecode)
+  } else {
+    item = root.getElementsByTagName("span").find(span => span.attributes.class && span.attributes.class.includes("descriptionSection__moreText"))
+    
+    if(item !== undefined){
+      const toDecode = item.rawText
+      console.log(he.decode(toDecode))
+      longDescription = he.decode(toDecode)
+    } else {
+      longDescription = '-'
+    }
+  }
   return longDescription
 }
 
