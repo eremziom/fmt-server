@@ -15,7 +15,7 @@ function scrapCritRate(root){
 }
 
 function scrapTitle(root){
-  const item = root.getElementsByTagName("h1").find(h1 => h1.attributes.class.includes("filmCoverSection__title"))
+  const item = root.getElementsByTagName("h1").find(h1 => h1.attributes.class?.includes("filmCoverSection__title"))
   const toDecode = item.childNodes[0].rawText
   console.log(he.decode(toDecode))
   const title = he.decode(toDecode)
@@ -110,7 +110,7 @@ function scrapProduction(root){
 }
 
 function scrapShortDescription(root){
-  const item = root.getElementsByTagName("div").find(div => div.attributes.class && div.attributes.class.includes("filmPosterSection__plot"))
+  const item = root.getElementsByTagName("div").find(div => div.attributes.class?.includes("filmPosterSection__plot"))
   table = item.childNodes
   let shortDescription = ''
   table.forEach(element => {
@@ -124,13 +124,16 @@ function scrapShortDescription(root){
 }
 
 function scrapLongDescription(root){
-  let item = root.getElementsByTagName("p").find(p => p.attributes.class && p.attributes.class.includes("descriptionSection__text"))
+  let item = root.getElementsByTagName("p").find(p => p.attributes.class?.includes("descriptionSection__text"))
   let longDescription = ''
-  if(item.childNodes.length === 1){
+  if(item === undefined){
+    longDescription = '-'
+  }
+  else if(item.childNodes.length === 1){
     const toDecode = item.rawText
     longDescription = he.decode(toDecode)
   } else {
-    item = root.getElementsByTagName("span").find(span => span.attributes.class && span.attributes.class.includes("descriptionSection__moreText"))
+    item = root.getElementsByTagName("span").find(span => span.attributes.class?.includes("descriptionSection__moreText"))
     
     if(item !== undefined){
       const toDecode = item.rawText
@@ -144,7 +147,7 @@ function scrapLongDescription(root){
 }
 
 function scrapMainActors(root){
-  const item = root.getElementsByTagName("h3").filter(h3 => h3.attributes.class && h3.attributes.class.includes("simplePoster__heading") && h3.attributes.itemprop === 'name')
+  const item = root.getElementsByTagName("h3").filter(h3 => h3.attributes.class?.includes("simplePoster__heading") && h3.attributes.itemprop === 'name')
   const mainActors = []
   item.forEach(element => {
     console.log(element.rawText)
@@ -155,7 +158,7 @@ function scrapMainActors(root){
 }
 
 function scrapCover(root){
-  const item = root.getElementsByTagName("a").find(a => a.attributes.class && a.attributes.class.includes("filmPosterSection__link"))
+  const item = root.getElementsByTagName("a").find(a => a.attributes.class?.includes("filmPosterSection__link"))
   const table = item.childNodes
   let cover = ''
   table.forEach(element => {

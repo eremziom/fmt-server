@@ -5,6 +5,8 @@ const { mongoDBPass, mongoAddress, serverURI } = require('./config.js')
 
 const movieRoutes = require('./routes/movie.routes.js')
 const getmovieRoutes = require('./routes/getmovie.routes.js')
+const userRoutes = require('./routes/user.routes.js')
+const testRoutes = require('./routes/test.routes.js')
 
 const app = express()
 app.use(cors())
@@ -14,6 +16,8 @@ app.use(express.urlencoded({ extended: false }))
 
 app.use(`${serverURI}`, movieRoutes)
 app.use(`${serverURI}`, getmovieRoutes)
+app.use(`${serverURI}`, userRoutes)
+app.use(`${serverURI}`, testRoutes)
 
 app.use(`${serverURI}`, (req, res) => {
   res.status(404).send({message: 'Sorry, address was not found...'})
