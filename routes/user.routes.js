@@ -37,7 +37,7 @@ router.post('/register', async (req, res) => {
     const { login, password, isAdmin } = req.body
 
     if (!(login && password && isAdmin)) {
-      res.status(400).send("Login, Password or idAdmin is missing")
+      return res.status(400).send("Login, Password or idAdmin is missing")
     }
 
     const oldUser = await User.findOne({ login })
@@ -76,10 +76,12 @@ router.post('/login', async (req, res) => {
     const { login, password } = req.body
 
     if (!(login && password)) {
-      res.status(400).send("Login or Password is missing")
+      return res.status(400).send("Login or Password is missing")
     }
 
     const user = await User.findOne({ login })
+
+    console.log('user: ', user)
 
     if(user && (await bcrypt.compare(password, user.password))){
       let token_key = config.jwt_token
@@ -87,7 +89,7 @@ router.post('/login', async (req, res) => {
         { user_id: user._id, login },
         token_key,
         {
-          expiresIn: "1m",
+          expiresIn: "2h",
         }
       )
       user.token = token
@@ -114,7 +116,7 @@ router.post('/verify', auth, async(req, res) => {
         { user_id: user._id, login },
         token_key,
         {
-          expiresIn: "1m",
+          expiresIn: "2h",
         }
       )
       user.token = token
